@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Key, Menu, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
+import Header from "@/components/Header";
 
 const CATEGORIAS = [
   { nome: "Tenis", src: "/tenis.png" },
@@ -18,17 +19,8 @@ const PRODUTOS = [
 export default function Home() {
   return (
     <main>
-      <header className="m-3 grid grid-cols-5 font-bold lg:text-4xl text-xl">
-        <div className="col-span-4  grid grid-cols-10">
-          <img className="w-6 lg:w-12 lg:mx-22 m-auto  pt-1" src="/folha.png" alt="" />
-          <h1  className="col-span-9 my-auto"><a href="">TAILWIND STORE</a></h1>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          <Menu className="lg:size-8 cursor-pointer m-auto"></Menu>
-          <ShoppingCart className="lg:size-8 cursor-pointer m-auto"></ShoppingCart>
-        </div>
-      </header>
-
+      
+    <Header />
       <div className="mb-2 lg:mb-14 bg-[url('/moda.jpg')] bg-cover bg-center w-full h-54 lg:h-120 z-0 ">
         <div className="bg-black/40 lg:h-120  flex justify-center items-center text-white font-bold gap-1 lg:gap-4 flex-col z-1 h-54">
           <h1 className=" text-2xl lg:text-6xl"> Shop As Últimas Tendências</h1>
@@ -96,7 +88,7 @@ export default function Home() {
 
       <footer className="font-light text-[10px] text-center p-12 mt-44   text-white/70 bg-[#202935]">
         <h6>Tailwnd Store</h6>
-        <p>©Todos os direitos reservados</p>
+        <p>©Todos os direitos reservados. Desenvolvedor: <a href="https://github.com/anderson-camilo-dev">Anderson dev</a></p>
       </footer>
     </main>
   );
