@@ -1,15 +1,36 @@
+'use client';
+
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Contador from "@/components/contador";
+import { supabase } from "@/lib/supabase";
 
-const PRODUTOS = [
-  { id: 1, nome: "Tenis Casual", valor: 250.99, src: "/tenisCasual.png" },
-  { id: 2, nome: "luminaria", valor: 250.12, src: "/luminaria.png" },
-  { id: 3, nome: "Mochila de Camp", valor: 250.21, src: "/mochilaCamp.png" },
-  { id: 4, nome: "Camisa", valor: 250.11, src: "/camisa.png" },
-];
-
+interface Produto {
+  id: number;
+  nome: string;
+  valor: number;
+  src: string;
+}
 
 export default function Carrinho() {
+ const [produtos, setProdutos] = useState<Produto[]>([]);
+useEffect(() => {
+    const carregarDados = async () => {
+      try {
+        const { data: prodData, error: prodErr } = await supabase.from('produtos').select('*');
+
+        if (prodErr) console.error("Erro nos produtos:", prodErr.message);
+
+       if (prodData) setProdutos(prodData);
+      } catch (e) {
+        console.error("Falha na requisição:", e);
+      }
+    };
+
+    carregarDados();
+  }, []);
+
+
   return (
     <main className="h-screen bg-[#f8f8f9] ">
       <Header />
@@ -22,7 +43,7 @@ export default function Carrinho() {
       </h1>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
         <div className="lg:col-span-2 space-y-4 h-150 overflow-y-auto pr-4 custom-scroll">
-          {PRODUTOS.map((prod) => (
+          {produtos.map((prod) => (
             <div
               key={prod.nome}
               className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex gap-4 items-center"
